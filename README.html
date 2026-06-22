@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sapporo_dataset — 데이터 설명서</title>
+<style>
+  body{margin:0;font-family:"Malgun Gothic","Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    color:#1b2333;background:#f6f9f8;line-height:1.65;font-size:15px;}
+  .head{background:#0e2236;color:#fff;padding:30px 22px;}
+  .in{max-width:920px;margin:0 auto;}
+  .head h1{font-size:24px;margin:0 0 6px;} .head p{margin:0;color:#bcd2cc;font-size:14px;}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 22px 70px;}
+  h2{font-size:19px;color:#0e2236;margin:30px 0 8px;}
+  h3{font-size:15.5px;color:#143a52;margin:16px 0 6px;}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #d9e4e0;font-size:13.5px;margin:8px 0;}
+  th,td{padding:8px 11px;text-align:left;border-bottom:1px solid #d9e4e0;vertical-align:top;}
+  th{background:#143a52;color:#fff;font-weight:600;font-size:12.5px;}
+  tr:last-child td{border-bottom:none;} tbody tr:nth-child(even){background:#fafdfb;}
+  code{background:#eef2f1;border-radius:5px;padding:1px 6px;font-size:13px;}
+  .box{background:#e6f4ee;border:1px solid #c7e8da;border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .box.w{background:#fff6e9;border-color:#f0d9b0;}
+  ul{margin:7px 0;padding-left:20px;} li{margin:4px 0;}
+</style>
+</head>
+<body>
+<div class="head"><div class="in">
+  <h1>Sapporo_dataset — 제공 데이터 설명서</h1>
+  <p>2026 삿포로 해커톤 제공 데이터 4종 · 모두 공식 출처 원본을 정제 · 2026-06-11 구축</p>
+</div></div>
+<div class="wrap">
+
+  <h2>한눈에 보기</h2>
+  <table><thead><tr><th>파일</th><th>내용</th><th>규모</th><th>기간</th><th>출처</th></tr></thead><tbody>
+    <tr><td><code>Sapporo_weather_daily_10Y.csv</code></td><td>삿포로 일별 기상(관측소 공식값)</td><td>4,018행</td><td>2015-06 ~ 2026-05</td><td>기상청(JMA) 삿포로관구기상대 47412</td></tr>
+    <tr><td><code>Sapporo_bear_sightings_10Y.csv</code></td><td>삿포로 시내 곰 출몰 건별 기록(위경도 포함)</td><td>1,568행</td><td>2017 ~ 2025.11</td><td>삿포로시 공식 오픈데이터(CC-BY 4.0)</td></tr>
+    <tr><td><code>Hokkaido_heatstroke_daily_10Y.csv</code></td><td>홋카이도 일별 열중증 구급이송(연령·중증도·장소별)</td><td>1,652행</td><td>2015 ~ 2025 (매년 5~9월)</td><td>총무성 소방청(FDMA)</td></tr>
+    <tr><td><code>Japan_visitor_arrivals_monthly_10Y.csv</code></td><td>방일 외국인 월별·국가별 입국자</td><td>6,610행 (53개 시장)</td><td>2015-01 ~ 2026-04</td><td>일본정부관광국(JNTO)</td></tr>
+  </tbody></table>
+  <div class="box">검증 완료: 전국 열중증 2023년 합계 91,467명(소방청 공식치와 일치) · 방일 외객 2024년 합계 36,870,148명(공식 발표치와 일치) · 2023년 삿포로 30℃ 이상 30일(관측 기록과 일치) · 7월 평균기온 평년값 21.1℃ 재현.</div>
+
+  <h2>1. Sapporo_weather_daily_10Y.csv — 일별 기상</h2>
+  <table><thead><tr><th>컬럼</th><th>설명</th></tr></thead><tbody>
+    <tr><td><code>date</code></td><td>날짜 (YYYY-MM-DD)</td></tr>
+    <tr><td><code>precipitation_mm</code></td><td>일 강수량 합계(mm). 없으면 0</td></tr>
+    <tr><td><code>temp_mean / temp_max / temp_min</code></td><td>일 평균/최고/최저 기온(℃)</td></tr>
+    <tr><td><code>humidity_mean</code></td><td>일 평균 상대습도(%)</td></tr>
+    <tr><td><code>wind_mean_ms</code></td><td>일 평균 풍속(m/s)</td></tr>
+    <tr><td><code>sunshine_h</code></td><td>일조시간(시간)</td></tr>
+    <tr><td><code>snowfall_cm / snow_depth_max_cm</code></td><td>일 강설량 / 최심적설(cm). 없으면 0</td></tr>
+  </tbody></table>
+  <ul>
+    <li>참고 기준: 真夏日 = <code>temp_max ≥ 30</code>, 猛暑日 = <code>≥ 35</code>, 熱帯夜 = <code>temp_min ≥ 25</code>, 여름일 = <code>temp_max ≥ 25</code>.</li>
+    <li>활용 예: 열대야·폭염 예측(분류/회귀), 열중증 데이터와 날짜로 조인해 "내일 위험" 모델 → 알림 시점 결정.</li>
+  </ul>
+
+  <h2>2. Sapporo_bear_sightings_10Y.csv — 곰 출몰 건별 기록</h2>
+  <table><thead><tr><th>컬럼</th><th>설명</th></tr></thead><tbody>
+    <tr><td><code>date / time</code></td><td>출몰 날짜·시각</td></tr>
+    <tr><td><code>ward</code></td><td>구(區) — 南区·西区 등</td></tr>
+    <tr><td><code>location</code></td><td>출몰 장소(일본어 원문)</td></tr>
+    <tr><td><code>latitude / longitude</code></td><td>위도·경도 — 지도 시각화·공간 분석 가능</td></tr>
+    <tr><td><code>situation</code></td><td>상황(목격·흔적·포획 등, 일본어 원문)</td></tr>
+  </tbody></table>
+  <ul>
+    <li>삿포로 시내 한정(홋카이도 전체 아님). 2025년은 11월 말까지 361건으로 역대 최다.</li>
+    <li>활용 예: 월·시간대·구별 위험도 분류 → 위험 구간에서 주의 모드 기본 켜기, 시간대 회피 권고.</li>
+    <li>라이선스: CC-BY 4.0 — 앱·논문에 "출처: 札幌市" 표기 필요.</li>
+  </ul>
+
+  <h2>3. Hokkaido_heatstroke_daily_10Y.csv — 일별 열중증 이송</h2>
+  <table><thead><tr><th>컬럼</th><th>설명</th></tr></thead><tbody>
+    <tr><td><code>date</code></td><td>날짜 (조사 기간: 매년 5~9월만)</td></tr>
+    <tr><td><code>transported_total</code></td><td>홋카이도 이송 인원 합계(명)</td></tr>
+    <tr><td><code>age_*</code></td><td>연령 구분: 신생아/영유아/소년/성인/고령자/불명</td></tr>
+    <tr><td><code>sev_*</code></td><td>중증도: 사망/중증/중등증/경증/기타</td></tr>
+    <tr><td><code>place_*</code></td><td>발생 장소: 주거/직장①②/교육기관/공공(실내·실외)/도로/기타 — <b>2019년 이전은 빈칸</b></td></tr>
+    <tr><td><code>japan_total</code></td><td>같은 날 전국 이송 합계(명) — 비교·맥락용</td></tr>
+  </tbody></table>
+  <ul>
+    <li>홋카이도 전체 수치(삿포로만이 아님). 겨울 데이터는 없음(조사 자체가 5~9월).</li>
+    <li>활용 예: 기상 데이터와 조인해 기온→이송 회귀, 고령자 비중 분석 → 폭염 안부 알림의 대상·시점·메시지 설계.</li>
+  </ul>
+
+  <h2>4. Japan_visitor_arrivals_monthly_10Y.csv — 방일 외객 월별·국가별</h2>
+  <table><thead><tr><th>컬럼</th><th>설명</th></tr></thead><tbody>
+    <tr><td><code>year / month</code></td><td>연·월</td></tr>
+    <tr><td><code>market</code></td><td>국가·지역명(일본어). <b>주의: 総数·アジア計 같은 합계 행 포함</b> — 국가별 분석 시 제외할 것</td></tr>
+    <tr><td><code>arrivals</code></td><td>입국자 수(명)</td></tr>
+  </tbody></table>
+  <ul>
+    <li>전국 수치(홋카이도 한정 아님). 최근 2~3개월은 추계치. 2020~2022는 코로나 급감 구간 — 시계열 모델 학습 시 유의.</li>
+    <li>활용 예: 계절성 분해·월별 예측, 국가 군집(여름형/겨울형 시장) → 혼잡 예측·분산 추천의 근거.</li>
+  </ul>
+
+  <h2>일본어 값 빠른 해석 (전처리용)</h2>
+  <p>원본은 일본 공식 자료라 일부 값이 일본어다. 분석 전에 매핑하라. 형식 = <code>일본어 (발음) — 뜻</code>.</p>
+  <table><thead><tr><th>구분</th><th>자주 나오는 값</th></tr></thead><tbody>
+    <tr><td>기상 지표</td><td>真夏日(마나쓰비) 한여름날·최고 30℃↑ · 猛暑日(모-쇼비) 폭염일·35℃↑ · 熱帯夜(넷타이야) 열대야·최저 25℃↑ · 夏日(나쓰비) 여름날·25℃↑</td></tr>
+    <tr><td>곰 <code>situation</code></td><td>ヒグマ(히구마) 불곰 · 目撃(모쿠게키) 목격 · 確認(카쿠닌) 확인 · フン(훈) 배설물 · 足跡(아시아토) 발자국 · 親子(오야코) 어미와 새끼 · 鳴き声(나키고에) 울음소리</td></tr>
+    <tr><td>곰 <code>ward</code>(구)</td><td>南区 남구 · 西区 서구 · 中央区 중앙구 · 手稲区 데이네구 · 豊平区 도요히라구 · 清田区 기요타구 · 東/北/白石/厚別区. (出몰의 71%가 南区)</td></tr>
+    <tr><td>관광 <code>market</code></td><td>韓国 한국 · 中国 중국 · 台湾 대만 · 香港 홍콩 · 米国 미국 · 豪州 호주 · 英国 영국 · その他(소노타) 기타</td></tr>
+  </tbody></table>
+  <div class="box w"><b>⚠️ 합계행 주의:</b> <code>総数</code>(소우스우, 전체 합계)·<code>アジア計</code>·<code>ヨーロッパ計</code> 등 <code>〜計</code>(케이, 소계)는 <b>합계행</b>이다. 국가별 분석 시 반드시 제외해야 두 번 세지 않는다.</div>
+  <div class="box">정돈된 데이터(Tidy Data) 3원칙으로 정리: <b>① 한 열 = 한 변수</b>(<code>ヒグマを目撃(親子)</code>는 종류+동반이 한 칸 → 분리) <b>② 한 행 = 한 관측</b>(합계행 분리) <b>③ 한 칸 = 한 값</b>(열중증 <code>place_*</code>는 2019년 이전 빈칸 → 결측 처리). 추가: UTF-8 인코딩·날짜 타입 변환.</div>
+
+  <h2>출처·재현</h2>
+  <ul>
+    <li>기상: JMA 過去の気象データ(삿포로 47412 일별값) — 수집 스크립트 <code>_fetch_jma.py</code></li>
+    <li>곰: DATA-SMART CITY SAPPORO <code>sapporo_bear_appearance</code> (CKAN, CC-BY 4.0)</li>
+    <li>열중증: 소방청 熱中症情報 연보 Excel(2015~2025) — 정제 스크립트 <code>_build_packs.py</code></li>
+    <li>방일 외객: JNTO 国籍/月別 訪日外客数 Excel</li>
+  </ul>
+  <div class="box w">유의: 파일명이 <code>_</code>로 시작하는 것은 원본·중간 산출물이다. 학생에게는 위 CSV 4개와 이 설명서만 배포하면 된다.</div>
+
+</div>
+</body>
+</html>
