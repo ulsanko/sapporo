@@ -74,7 +74,7 @@
     <tr><td><code>transported_total</code></td><td>홋카이도 이송 인원 합계(명)</td></tr>
     <tr><td><code>age_*</code></td><td>연령 구분: 신생아/영유아/소년/성인/고령자/불명</td></tr>
     <tr><td><code>sev_*</code></td><td>중증도: 사망/중증/중등증/경증/기타</td></tr>
-    <tr><td><code>place_*</code></td><td>발생 장소: 주거/직장①②/교육기관/공공(실내·실외)/도로/기타 — <b>2019년 이전은 빈칸</b></td></tr>
+    <tr><td><code>place_*</code></td><td>발생 장소: 주거/직장①②/교육기관/공공(실내·실외)/도로/기타 — <b>2015~2016년만 빈칸</b>(2017년부터 완전)</td></tr>
     <tr><td><code>japan_total</code></td><td>같은 날 전국 이송 합계(명) — 비교·맥락용</td></tr>
   </tbody></table>
   <ul>
@@ -102,7 +102,7 @@
     <tr><td>관광 <code>market</code></td><td>韓国 한국 · 中国 중국 · 台湾 대만 · 香港 홍콩 · 米国 미국 · 豪州 호주 · 英国 영국 · その他(소노타) 기타</td></tr>
   </tbody></table>
   <div class="box w"><b>⚠️ 합계행 주의:</b> <code>総数</code>(소우스우, 전체 합계)·<code>アジア計</code>·<code>ヨーロッパ計</code> 등 <code>〜計</code>(케이, 소계)는 <b>합계행</b>이다. 국가별 분석 시 반드시 제외해야 두 번 세지 않는다.</div>
-  <div class="box">정돈된 데이터(Tidy Data) 3원칙으로 정리: <b>① 한 열 = 한 변수</b>(<code>ヒグマを目撃(親子)</code>는 종류+동반이 한 칸 → 분리) <b>② 한 행 = 한 관측</b>(합계행 분리) <b>③ 한 칸 = 한 값</b>(열중증 <code>place_*</code>는 2019년 이전 빈칸 → 결측 처리). 추가: UTF-8 인코딩·날짜 타입 변환.</div>
+  <div class="box">정돈된 데이터(Tidy Data) 3원칙으로 정리: <b>① 한 열 = 한 변수</b>(<code>ヒグマを目撃(親子)</code>는 종류+동반이 한 칸 → 분리) <b>② 한 행 = 한 관측</b>(합계행 분리) <b>③ 한 칸 = 한 값</b>(열중증 <code>place_*</code>는 2015~2016년만 빈칸 → 결측 처리). 추가: UTF-8 인코딩·날짜 타입 변환.</div>
 
   <h2>출처·재현</h2>
   <ul>
